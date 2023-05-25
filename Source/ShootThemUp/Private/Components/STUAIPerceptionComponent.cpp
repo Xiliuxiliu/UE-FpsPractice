@@ -19,7 +19,7 @@ AActor* USTUAIPerceptionComponent::GetClosesEnemy() const
 	const auto Pawn = Controller->GetPawn();
 	if (!Pawn) return nullptr;
 
-	float BestDistance = MAX_flt;
+	float BestDistance = MAX_FLT;
 	AActor* BestPawn = nullptr;
 	for (const auto PercieveActor:PercieveActors)
 	{

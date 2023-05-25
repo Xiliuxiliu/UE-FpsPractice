@@ -6,6 +6,8 @@
 #include "AIController.h"
 #include "NavigationSystem.h"
 
+DEFINE_LOG_CATEGORY_STATIC(NextLocationTaskLog,All,All)
+
 USTUNextLocationTask::USTUNextLocationTask()
 {
 	NodeName = "Next Location";
@@ -20,12 +22,27 @@ EBTNodeResult::Type USTUNextLocationTask::ExecuteTask(UBehaviorTreeComponent& Ow
 	const auto Pawn = Controller->GetPawn();
 	if (!Pawn) return EBTNodeResult::Failed;
 
-	const auto NavSys = UNavigationSystemV1::GetCurrent(this);
+	const auto NavSys = UNavigationSystemV1::GetCurrent(Pawn);
 	if (!NavSys) return EBTNodeResult::Failed;
 
 	FNavLocation NavLocation;
-	const auto Found = NavSys->GetRandomReachablePointInRadius(Pawn->GetActorLocation(), Radius, NavLocation);
-	if (!Found) return EBTNodeResult::Failed;
+
+	auto Location = Pawn->GetActorLocation();
+	if (!SelfCenter)
+	{
+		auto CenterActor = Cast<AActor>(Blackboard->GetValueAsObject(CenterActorKey.SelectedKeyName));
+		if (!CenterActor)
+		{
+			return EBTNodeResult::Failed;
+		}
+		Location = CenterActor->GetActorLocation();
+	}
+
+	const auto Found = NavSys->GetRandomReachablePointInRadius(Location, Radius, NavLocation);
+	if (!Found) 
+	{
+		return EBTNodeResult::Failed;
+	}
 
 	Blackboard->SetValueAsVector(AimLocationKey.SelectedKeyName, NavLocation.Location);
 	return EBTNodeResult::Succeeded;
