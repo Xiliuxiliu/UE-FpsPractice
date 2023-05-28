@@ -21,10 +21,12 @@ public:
 
 	virtual void StartFire();
 	virtual void StopFire();
+	virtual void MakeShot();
 
 	void Reload();
 	bool IsAmmoFullPublic() const;
 	bool IsClipZero()const;
+	bool IsAmmoEmpty()const;
 
 	void TryToAddAmmo(int32 ClipAmount,bool& IsNeeaAdd);
 
@@ -52,7 +54,6 @@ protected:
 	UNiagaraSystem* MuzzleFX;
 
 	virtual void BeginPlay() override;
-	virtual void MakeShot();
 	virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
 
 	APlayerController* GetPlayerController()const;
@@ -63,7 +64,6 @@ protected:
 	void DecreaseAmmo();
 	bool IsAmmoFull() const;
 	bool IsAmmoAndClipsFull() const;
-	bool IsAmmoEmpty()const;
 	bool IsClipEmpty()const;
 	void ChangeClip();
 	void LogAmmo();

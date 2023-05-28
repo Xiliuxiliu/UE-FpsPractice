@@ -19,6 +19,7 @@ public:
 	ASTURifleWeapon();
 	virtual void StartFire()override;
 	virtual void StopFire()override;
+	virtual void MakeShot()override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Weapon")
@@ -34,7 +35,6 @@ protected:
 	USTUWeaponFXComponent* WeaponFXComponent;
 
 	virtual void BeginPlay()override;
-	virtual void MakeShot()override;
 	virtual bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const override;
 
 private:

@@ -23,6 +23,7 @@ USTUWeaponComponent::USTUWeaponComponent()
 void USTUWeaponComponent::StartFire()
 {
 	if (!CanFire()) return;
+	UE_LOG(LogWeaponComponents, Warning, TEXT("Enter STUWeaponComponent"));
 	CurrentWeapon->StartFire();
 }
 

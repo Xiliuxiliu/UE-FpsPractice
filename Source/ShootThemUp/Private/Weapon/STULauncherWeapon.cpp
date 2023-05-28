@@ -4,18 +4,29 @@
 #include "Weapon/STULauncherWeapon.h"
 #include "Weapon/STUProjectile.h"
 
+DEFINE_LOG_CATEGORY_STATIC(WeaponLauncherLog,All,All)
 
 void ASTULauncherWeapon::StartFire()
 {
+	UE_LOG(WeaponLauncherLog, Display, TEXT("Strat Fire Launcher"));
 	MakeShot();
 }
 
 void ASTULauncherWeapon::MakeShot()
 {
-	if (!GetWorld()||IsAmmoEmpty())return;
+	UE_LOG(WeaponLauncherLog, Display, TEXT("Enter Launcher MakeShot"));
+	if (!GetWorld() || IsAmmoEmpty())
+	{ 
+		UE_LOG(WeaponLauncherLog, Display, TEXT("Launcher MakeShot Failed 1"));
+		return; 
+	}
 
 	FVector TraceStart, TraceEnd;
-	if (!GetTraceData(TraceStart, TraceEnd))return;
+	if (!GetTraceData(TraceStart, TraceEnd)) 
+	{ 
+		UE_LOG(WeaponLauncherLog, Display, TEXT("Launcher MakeShot Failed 2"));
+		return; 
+	}
 
 	FHitResult HitResult;
 	MakeHit(HitResult, TraceStart, TraceEnd);

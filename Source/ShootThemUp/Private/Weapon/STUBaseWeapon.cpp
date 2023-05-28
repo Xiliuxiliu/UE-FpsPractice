@@ -22,7 +22,7 @@ ASTUBaseWeapon::ASTUBaseWeapon()
 
 void ASTUBaseWeapon::StartFire()
 {
-
+	UE_LOG(LogBaseWeapon, Display, TEXT("Strat Fire base"));
 }
 
 void ASTUBaseWeapon::StopFire()
@@ -56,9 +56,10 @@ APlayerController* ASTUBaseWeapon::GetPlayerController() const
 bool ASTUBaseWeapon::GetplayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
 {
 	const auto Controller1 = GetPlayerController();
-	if (!Controller1)return false;
 
+	if (!Controller1)return false;
 	Controller1->GetPlayerViewPoint(ViewLocation, ViewRotation);
+	
 	return true;
 
 }
@@ -72,7 +73,11 @@ bool ASTUBaseWeapon::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
 {
 	FVector ViewLocation;
 	FRotator ViewRotation;
-	if (!GetplayerViewPoint(ViewLocation, ViewRotation))return false;
+	if (!GetplayerViewPoint(ViewLocation, ViewRotation)) 
+	{ 
+		UE_LOG(LogBaseWeapon, Display, TEXT("GetTraceData Failed 1"));
+		return false; 
+	}
 
 	UE_LOG(LogBaseWeapon, Error, TEXT("ViewLocation is %s, ViewRotation is %s"), *ViewLocation.ToString(), *ViewRotation.ToString());
 

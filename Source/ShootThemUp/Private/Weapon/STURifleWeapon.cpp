@@ -7,6 +7,8 @@
 #include "Weapon//Components/STUWeaponFXComponent.h"
 #include "NiagaraComponent.h"
 
+DEFINE_LOG_CATEGORY_STATIC(WeaponRifleLog, All, All)
+
 ASTURifleWeapon::ASTURifleWeapon()
 {
 	WeaponFXComponent = CreateDefaultSubobject<USTUWeaponFXComponent>("WeaponFXComponent");
@@ -15,6 +17,7 @@ ASTURifleWeapon::ASTURifleWeapon()
 void ASTURifleWeapon::StartFire()
 {
 	GetWorld()->GetTimerManager().SetTimer(ShotTimerHandle, this, &ASTURifleWeapon::MakeShot, TimerBetweenShots, true);
+	UE_LOG(WeaponRifleLog, Display, TEXT("Start Fire Rifle"));
 	MakeShot();
 }
 
@@ -32,9 +35,10 @@ void ASTURifleWeapon::BeginPlay()
 
 void ASTURifleWeapon::MakeShot()
 {
-	UE_LOG(LogTemp, Display, TEXT("MakeShot"));
+	UE_LOG(LogTemp, Display, TEXT("Rifle MakeShot"));
 	if (!GetWorld() || IsAmmoEmpty())
 	{	
+		UE_LOG(LogTemp, Display, TEXT("Rifle MakeShot Failed 1"));
 		StopFire();
 		return;
 	}
@@ -42,6 +46,7 @@ void ASTURifleWeapon::MakeShot()
 	FVector TraceStart, TraceEnd;
 	if (!GetTraceData(TraceStart, TraceEnd))
 	{
+		UE_LOG(LogTemp, Display, TEXT("Rifle MakeShot Failed 2"));
 		StopFire();
 		return;
 	}
