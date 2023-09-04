@@ -5,6 +5,7 @@
 #include "STUCoreTypes.generated.h"
 
 class ASTUBaseWeapon;
+class UAnimMontage;
 
 DECLARE_MULTICAST_DELEGATE(FOnDeath);
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, float);

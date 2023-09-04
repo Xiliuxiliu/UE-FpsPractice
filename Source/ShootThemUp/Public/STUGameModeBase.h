@@ -16,6 +16,6 @@ class SHOOTTHEMUP_API ASTUGameModeBase : public AGameModeBase
 
 public:
 	ASTUGameModeBase();
-	void BeginPlay();
+	virtual void BeginPlay() override;
 
 };

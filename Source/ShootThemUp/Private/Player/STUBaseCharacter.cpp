@@ -39,7 +39,6 @@ ASTUBaseCharacter::ASTUBaseCharacter(const FObjectInitializer& Object)
 	HealthTextComponent1->SetOwnerNoSee(true);
 
 	STUWeaponComponent1 = CreateDefaultSubobject<USTUWeaponComponent>("STUWeaponComponent1");
-	
 }
 
 // Called when the game starts or when spawned
